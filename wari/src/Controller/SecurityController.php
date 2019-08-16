@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Entity\Compts;
 use App\Form\UserType;
 use App\Form\ComptType;
+use App\Form\LoginType;
+use App\Form\BloquerType;
 use App\Entity\Partenaire;
 use App\Form\PartenaireType;
 use App\Repository\UserRepository;
@@ -14,9 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -38,16 +41,55 @@ class SecurityController extends AbstractController
             'controller_name' => 'SecurityController',
         ]);
     }
+    private $passwordEncoder;
+
+public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+{
+  $this->passwordEncoder = $passwordEncoder;
+}
     /**
      * @Route("/login", name="login", methods={"POST"})
+     * @param JWTEncoderInterface $JWTEncoder
+     * @throws \Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTEncodeFailureException
      */
-    public function login(Request $request)
+    public function login(Request $request, JWTEncoderInterface $JWTEncoder)
     {
-        $user = $this->getUser();
-        return $this->json([
+       
+    $user =  new User();
+    $values=$request->request->all();//si form
+    $form = $this->createForm(LoginType::class, $user);
+    $form->handleRequest($request);
+    $form->submit($values);
+    $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+        'username' =>$values["username"]
+    ]);
+
+    if (!$user) {
+        throw $this->createNotFoundException('User Not Found');
+    }
+    $isValid = $this->passwordEncoder->isPasswordValid($user, $values["password"]);
+    if(!$isValid){ 
+     throw $this->createNotFoundException('Password incorrect');
+
+    }
+    if($user->getStatus()=="bloquer"){
+        throw $this->createNotFoundException('Acces refuser! Veillez contacter l admin');
+
+    }
+    if($user->getPartenaire()->getStatus()=="bloquer"){
+        throw $this->createNotFoundException('Acces refuser! Veillez contacter l superadmin');
+
+    }
+    $token = $JWTEncoder->encode([
             'username' => $user->getUsername(),
-            'roles' => $user->getRoles()
+            'exp' => time() + 3600 // 1 hour expiration
         ]);
+
+    return new JsonResponse(['token' => $token]);
+
+
+         var_dump($values);die();
+        
     }
     /**
      * @Route("/register", name="register", methods={"POST"})
@@ -236,6 +278,48 @@ class SecurityController extends AbstractController
    return new Response($validator->validate($form));
 
 }
+//-------Bloquer Debloquer-----------------/////
+
+/**
+ * @Route("/bloquer", name="userBlock", methods={"GET","POST"})
+ * @IsGranted("ROLE_ADMIN")
+
+ */
+
+public function userBloquer(Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager): Response
+    {
+
+        $values=$request->request->all();//si form
+        $user = new User();
+        $form = $this->createForm(BloquerType::class, $user);
+        $form->handleRequest($request);
+         
+        $form->submit($values);
+
+
+        $user=$userRepo->findOneByUsername($values['username']);
+        
+
+        if($user->getStatus()=="Active"){
+            $user->setStatus("bloquer");
+            $entityManager->flush();
+            $data = [
+                'status' => 200,
+                'message' => 'utilisateur  bloquer'
+            ];
+            return new JsonResponse($data);
+        }
+        
+        else{
+            $user->setStatus("Active");
+            $entityManager->flush();
+            $data = [
+                'status' => 200,
+                'message' => 'utilisateur debloquer'
+            ];
+            return new JsonResponse($data);
+        }
+    }
 
 
 }

@@ -2,19 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Compts;
 use App\Entity\Depots;
 use App\Form\ComptType;
 use App\Form\DepotType;
 use App\Entity\Partenaire;
-use App\Repository\PartenaireRepository;
+use App\Form\BlocPartType;
+use App\Repository\UserRepository;
 use App\Repository\DepotsRepository;
+use App\Repository\PartenaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -126,13 +129,56 @@ class PartenaireController extends AbstractController
             $entityManager->flush();
         return new Response('Le depot effectuer',Response::HTTP_CREATED);
 
-
         }
         else{
             return new Response('veillez saisir un montant superieur ou egal a 75000',Response::HTTP_CREATED);
         }
             
     } 
+    //---------Bloquer Debloquer partenaire----------///
+
+/**
+ * @Route("/partbloquer/{id}", name="partBlock", methods={"PUT"})
+ * @IsGranted("ROLE_SUPERADMIN")
+
+ */
+
+public function partBloquer(Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager,User $user): Response
+    {
+
+        $values=$request->request->all();//si form
+        $part = new Partenaire();
+        $form = $this->createForm(BlocPartType::class, $part);
+        $form->handleRequest($request);
+         
+        $form->submit($values);
+
+
+        $part = $entityManager->getRepository(Partenaire::class)->find($user->getId());        
+
+        if($part->getStatus()=="Active"){
+            $part->setStatus("bloquer");
+            $entityManager->flush();
+            $data = [
+                'status' => 200,
+                'message' => 'partenaire bloquer'
+            ];
+            return new JsonResponse($data);
+        }
+        
+        else{
+            $user->setStatus("Active");
+            $entityManager->flush();
+            $data = [
+                'status' => 200,
+                'message' => 'partenaire debloquer'
+            ];
+            return new JsonResponse($data);
+        }
+    }
+
+
+
 
 
 }

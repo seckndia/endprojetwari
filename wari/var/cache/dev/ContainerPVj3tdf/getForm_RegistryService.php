@@ -14,8 +14,11 @@ include_once $this->targetDirs[3].'/vendor/symfony/form/ResolvedFormTypeFactoryI
 include_once $this->targetDirs[3].'/vendor/symfony/form/ResolvedFormTypeFactory.php';
 
 return $this->privates['form.registry'] = new \Symfony\Component\Form\FormRegistry([0 => new \Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension(new \Symfony\Component\DependencyInjection\Argument\ServiceLocator($this->getService, [
+    'App\\Form\\BlocPartType' => ['privates', 'App\\Form\\BlocPartType', 'getBlocPartTypeService.php', true],
+    'App\\Form\\BloquerType' => ['privates', 'App\\Form\\BloquerType', 'getBloquerTypeService.php', true],
     'App\\Form\\ComptType' => ['privates', 'App\\Form\\ComptType', 'getComptTypeService.php', true],
     'App\\Form\\DepotType' => ['privates', 'App\\Form\\DepotType', 'getDepotTypeService.php', true],
+    'App\\Form\\LoginType' => ['privates', 'App\\Form\\LoginType', 'getLoginTypeService.php', true],
     'App\\Form\\PartenaireType' => ['privates', 'App\\Form\\PartenaireType', 'getPartenaireTypeService.php', true],
     'App\\Form\\UserType' => ['privates', 'App\\Form\\UserType', 'getUserTypeService.php', true],
     'Symfony\\Bridge\\Doctrine\\Form\\Type\\EntityType' => ['privates', 'form.type.entity', 'getForm_Type_EntityService.php', true],
@@ -25,8 +28,11 @@ return $this->privates['form.registry'] = new \Symfony\Component\Form\FormRegist
     'Vich\\UploaderBundle\\Form\\Type\\VichFileType' => ['services', 'vich_uploader.form.type.file', 'getVichUploader_Form_Type_FileService.php', true],
     'Vich\\UploaderBundle\\Form\\Type\\VichImageType' => ['services', 'vich_uploader.form.type.image', 'getVichUploader_Form_Type_ImageService.php', true],
 ], [
+    'App\\Form\\BlocPartType' => '?',
+    'App\\Form\\BloquerType' => '?',
     'App\\Form\\ComptType' => '?',
     'App\\Form\\DepotType' => '?',
+    'App\\Form\\LoginType' => '?',
     'App\\Form\\PartenaireType' => '?',
     'App\\Form\\UserType' => '?',
     'Symfony\\Bridge\\Doctrine\\Form\\Type\\EntityType' => '?',
