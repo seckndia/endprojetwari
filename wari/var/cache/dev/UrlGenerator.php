@@ -8,6 +8,7 @@ return [
     'compt' => [[], ['_controller' => 'App\\Controller\\PartenaireController::ajoutcompt'], [], [['text', '/api/ajoutcompt']], [], []],
     'depot' => [[], ['_controller' => 'App\\Controller\\PartenaireController::depot'], [], [['text', '/api/depot']], [], []],
     'partBlock' => [['id'], ['_controller' => 'App\\Controller\\PartenaireController::partBloquer'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/partbloquer']], [], []],
+    'pdf' => [[], ['_controller' => 'App\\Controller\\PdfController::index'], [], [['text', '/pdf']], [], []],
     'security' => [[], ['_controller' => 'App\\Controller\\SecurityController::index'], [], [['text', '/api/security']], [], []],
     'login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/api/login']], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\SecurityController::register'], [], [['text', '/api/register']], [], []],

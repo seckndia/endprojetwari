@@ -38,7 +38,7 @@ class PartenaireController extends AbstractController
     }
 
    
-          /**
+    /**
      * @Route("/ajoutcompt", name="compt")
      * @IsGranted("ROLE_SUPERADMIN")
      
@@ -86,13 +86,13 @@ class PartenaireController extends AbstractController
 
     }
 
-  //-------Faire un dépots---------//////
+  //---------------Faire un dépots--------------------//////
 
     /**
      * @Route("/depot", name="depot", methods={"POST"})
      * @IsGranted("ROLE_CAISSIER")
      */
-    public function depot(Request $request,EntityManagerInterface $entityManager,DepotsRepository $repo ): Response
+public function depot(Request $request,EntityManagerInterface $entityManager,DepotsRepository $repo ): Response
     {
 
         $depot = new Depots();
