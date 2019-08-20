@@ -165,9 +165,8 @@ public function partBloquer(Request $request, UserRepository $userRepo,EntityMan
             ];
             return new JsonResponse($data);
         }
-        
         else{
-            $user->setStatus("Active");
+            $part->setStatus("Active");
             $entityManager->flush();
             $data = [
                 'status' => 200,

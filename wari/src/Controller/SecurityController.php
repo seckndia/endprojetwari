@@ -9,6 +9,7 @@ use App\Form\ComptType;
 use App\Form\LoginType;
 use App\Form\BloquerType;
 use App\Entity\Partenaire;
+use App\Form\ComptuserType;
 use App\Form\PartenaireType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,18 +66,19 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     ]);
 
     if (!$user) {
-        throw $this->createNotFoundException('User Not Found');
+        throw $this->createNotFoundException('usermane invalide');
     }
     $isValid = $this->passwordEncoder->isPasswordValid($user, $values["password"]);
     if(!$isValid){ 
      throw $this->createNotFoundException('Password incorrect');
 
     }
+    
     if($user->getStatus()=="bloquer"){
         throw $this->createNotFoundException('Acces refuser! Veillez contacter l admin');
 
     }
-    if($user->getPartenaire()->getStatus()=="bloquer"){
+    if($user->getPartenaire()!=NULL && $user->getPartenaire()->getStatus()=="bloquer"){
         throw $this->createNotFoundException('Acces refuser! Veillez contacter l superadmin');
 
     }
@@ -256,7 +258,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
        $user->setRoles(['ROLE_USER']);    
              }
 
-             $partenaire=$this->getUser()->getPartenaire();
+     $partenaire=$this->getUser()->getPartenaire();
 
             $user->setPartenaire($partenaire);
             $user->setStatus('Active');
@@ -283,7 +285,6 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
 /**
  * @Route("/bloquer", name="userBlock", methods={"GET","POST"})
  * @IsGranted("ROLE_ADMIN")
-
  */
 
 public function userBloquer(Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager): Response
@@ -320,6 +321,43 @@ public function userBloquer(Request $request, UserRepository $userRepo,EntityMan
             return new JsonResponse($data);
         }
     }
+//--------------------Affectation de compte a un user------------------------////
+/**
+ * @Route("/afectcompt/{id}" , name="afectationCompt", methods={"POST"})
+ * @IsGranted("ROLE_ADMIN")
+ */
 
+public function afectcompt(Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager, User $user): Response
+{
+
+    $values=$request->request->all();
+
+$part=new Partenaire();
+$uses = new Compts();
+$entityManager = $this->getDoctrine()->getManager();
+$form = $this->createForm(ComptuserType::class, $uses);
+        $form->handleRequest($request);
+         
+        $form->submit($values);
+$compte = $entityManager->getRepository(Compts::class)->findOneBy([
+    'numcompt'=>$values['numcompt'],
+    ]);  
+$part=$compte->getPartenaire();
+$partAdmin=$this->getUser()->getPartenaire();
+if($partAdmin != $part){
+    return new Response('Le compte n appartient pas a votre entreprise',Response::HTTP_CREATED);
+
+}
+
+   $user->setNumCompt($compte);
+   $entityManager->flush();
+   $data = [
+    'status' => 200,
+    'message' => 'afectation réussis'
+];
+return new JsonResponse($data);
+
+
+}
 
 }

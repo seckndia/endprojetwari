@@ -459,6 +459,9 @@
     <service id="App\Form\ComptType" class="App\Form\ComptType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\ComptuserType" class="App\Form\ComptuserType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\DepotType" class="App\Form\DepotType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -777,6 +780,7 @@
         <argument>App\Form\BlocPartType</argument>
         <argument>App\Form\BloquerType</argument>
         <argument>App\Form\ComptType</argument>
+        <argument>App\Form\ComptuserType</argument>
         <argument>App\Form\DepotType</argument>
         <argument>App\Form\LoginType</argument>
         <argument>App\Form\PartenaireType</argument>
@@ -1086,7 +1090,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.MfQYDaF"/>
+      <argument type="service" id=".service_locator.zDeTDW0"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -1540,14 +1544,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -4842,6 +4838,8 @@
     <service id=".abstract.instanceof.App\Form\BloquerType" class="App\Form\BloquerType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ComptType" class="App\Form\ComptType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ComptType" class="App\Form\ComptType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ComptuserType" class="App\Form\ComptuserType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ComptuserType" class="App\Form\ComptuserType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\DepotType" class="App\Form\DepotType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\DepotType" class="App\Form\DepotType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\LoginType" class="App\Form\LoginType" autowire="true" abstract="true"/>
@@ -5065,12 +5063,13 @@
         <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.D0YRnqg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.DtZlDXc" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\PartenaireController::ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
         <argument key="App\Controller\PartenaireController::depot" type="service" id=".service_locator.9V_Ytlz"/>
         <argument key="App\Controller\PartenaireController::partBloquer" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\SecurityController::afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController::ajoutpart" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController::ajoutpartuser" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.0xDS.HG"/>
@@ -5079,6 +5078,7 @@
         <argument key="App\Controller\PartenaireController:ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
         <argument key="App\Controller\PartenaireController:depot" type="service" id=".service_locator.9V_Ytlz"/>
         <argument key="App\Controller\PartenaireController:partBloquer" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\SecurityController:afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController:ajoutpart" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController:ajoutpartuser" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.0xDS.HG"/>
@@ -5145,12 +5145,13 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.MfQYDaF" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.zDeTDW0" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\BlocPartType" type="service" id="App\Form\BlocPartType"/>
         <argument key="App\Form\BloquerType" type="service" id="App\Form\BloquerType"/>
         <argument key="App\Form\ComptType" type="service" id="App\Form\ComptType"/>
+        <argument key="App\Form\ComptuserType" type="service" id="App\Form\ComptuserType"/>
         <argument key="App\Form\DepotType" type="service" id="App\Form\DepotType"/>
         <argument key="App\Form\LoginType" type="service" id="App\Form\LoginType"/>
         <argument key="App\Form\PartenaireType" type="service" id="App\Form\PartenaireType"/>
@@ -5356,12 +5357,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.D0YRnqg"/>
+      <argument type="service" id=".service_locator.DtZlDXc"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.D0YRnqg"/>
+      <argument type="service" id=".service_locator.DtZlDXc"/>
     </service>
     <service id="api_platform.swagger.normalizer.api_gateway.inner" class="ApiPlatform\Core\Swagger\Serializer\DocumentationNormalizer" public="false">
       <argument type="service" id="api_platform.metadata.resource.metadata_factory.cached"/>
@@ -5735,7 +5736,7 @@
     <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.lcobucci" public="true"/>
     <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.D0YRnqg"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.DtZlDXc"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>
