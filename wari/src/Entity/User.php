@@ -106,9 +106,15 @@ class User implements UserInterface
      */
     private $numCompt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Transaction", mappedBy="user")
+     */
+    private $transactions;
+
     public function __construct()
     {
         $this->depots = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
 
@@ -368,6 +374,37 @@ class User implements UserInterface
     public function setNumCompt(?Compts $numCompt): self
     {
         $this->numCompt = $numCompt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transaction[]
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): self
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions[] = $transaction;
+            $transaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): self
+    {
+        if ($this->transactions->contains($transaction)) {
+            $this->transactions->removeElement($transaction);
+            // set the owning side to null (unless already changed)
+            if ($transaction->getUser() === $this) {
+                $transaction->setUser(null);
+            }
+        }
 
         return $this;
     }

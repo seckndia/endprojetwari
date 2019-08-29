@@ -9,7 +9,7 @@ return [
     'depot' => [[], ['_controller' => 'App\\Controller\\PartenaireController::depot'], [], [['text', '/api/depot']], [], []],
     'partBlock' => [['id'], ['_controller' => 'App\\Controller\\PartenaireController::partBloquer'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/partbloquer']], [], []],
     'pdf' => [[], ['_controller' => 'App\\Controller\\PdfController::index'], [], [['text', '/pdf']], [], []],
-    'security' => [[], ['_controller' => 'App\\Controller\\SecurityController::index'], [], [['text', '/api/security']], [], []],
+    'listpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::listpart'], [], [['text', '/api/listpart']], [], []],
     'login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/api/login']], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\SecurityController::register'], [], [['text', '/api/register']], [], []],
     'ajoutpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::ajoutpart'], [], [['text', '/api/ajoutpart']], [], []],
@@ -34,5 +34,5 @@ return [
     'api_partenaires_get_item' => [['id', '_format'], ['_controller' => 'api_platform.action.get_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Partenaire', '_api_item_operation_name' => 'get'], [], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '[^/\\.]++', 'id', true], ['text', '/api/partenaires']], [], []],
     'api_partenaires_delete_item' => [['id', '_format'], ['_controller' => 'api_platform.action.delete_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Partenaire', '_api_item_operation_name' => 'delete'], [], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '[^/\\.]++', 'id', true], ['text', '/api/partenaires']], [], []],
     'api_partenaires_put_item' => [['id', '_format'], ['_controller' => 'api_platform.action.put_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Partenaire', '_api_item_operation_name' => 'put'], [], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '[^/\\.]++', 'id', true], ['text', '/api/partenaires']], [], []],
-    'api_login_check' => [[], [], [], [['text', '/api/login_check']], [], []],
+    'api_login_check' => [[], [], [], [['text', '/api/login']], [], []],
 ];

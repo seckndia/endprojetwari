@@ -12,16 +12,22 @@ use App\Entity\Partenaire;
 use App\Form\ComptuserType;
 use App\Form\PartenaireType;
 use App\Repository\UserRepository;
+use App\Repository\PartenaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
    /**
@@ -32,16 +38,20 @@ class SecurityController extends AbstractController
 {
 
     /**
-     * @Route("/security", name="security")
+     * @Route("/listpart", name="listpart" , methods={"POST"})
      */
-
-
-    public function index()
+    public function listpart( PartenaireRepository $partRepository , SerializerInterface $serializer): Response
     {
-        return $this->render('security/index.html.twig', [
-            'controller_name' => 'SecurityController',
+        $liste = $partRepository->findAll();
+        $data = $serializer->serialize($liste, 'json', [
+            'groups' => ['list']
         ]);
+        return new Response($data, 200, [
+            'Content-Type' => 'application/json'
+        ]);
+       
     }
+
     private $passwordEncoder;
 
 public function __construct(UserPasswordEncoderInterface $passwordEncoder)

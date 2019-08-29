@@ -12,13 +12,15 @@ return [
         '/api/ajoutcompt' => [[['_route' => 'compt', '_controller' => 'App\\Controller\\PartenaireController::ajoutcompt'], null, null, null, false, false, null]],
         '/api/depot' => [[['_route' => 'depot', '_controller' => 'App\\Controller\\PartenaireController::depot'], null, ['POST' => 0], null, false, false, null]],
         '/pdf' => [[['_route' => 'pdf', '_controller' => 'App\\Controller\\PdfController::index'], null, null, null, false, false, null]],
-        '/api/security' => [[['_route' => 'security', '_controller' => 'App\\Controller\\SecurityController::index'], null, null, null, false, false, null]],
-        '/api/login' => [[['_route' => 'login', '_controller' => 'App\\Controller\\SecurityController::login'], null, ['POST' => 0], null, false, false, null]],
+        '/api/listpart' => [[['_route' => 'listpart', '_controller' => 'App\\Controller\\SecurityController::listpart'], null, ['POST' => 0], null, false, false, null]],
+        '/api/login' => [
+            [['_route' => 'login', '_controller' => 'App\\Controller\\SecurityController::login'], null, ['POST' => 0], null, false, false, null],
+            [['_route' => 'api_login_check'], null, null, null, false, false, null],
+        ],
         '/api/register' => [[['_route' => 'register', '_controller' => 'App\\Controller\\SecurityController::register'], null, ['POST' => 0], null, false, false, null]],
         '/api/ajoutpart' => [[['_route' => 'ajoutpart', '_controller' => 'App\\Controller\\SecurityController::ajoutpart'], null, ['POST' => 0], null, false, false, null]],
         '/api/ajoutpartuser' => [[['_route' => 'ajoutpartuser', '_controller' => 'App\\Controller\\SecurityController::ajoutpartuser'], null, ['POST' => 0], null, false, false, null]],
         '/api/bloquer' => [[['_route' => 'userBlock', '_controller' => 'App\\Controller\\SecurityController::userBloquer'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

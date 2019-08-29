@@ -9,12 +9,14 @@ use App\Form\ComptType;
 use App\Form\DepotType;
 use App\Entity\Partenaire;
 use App\Form\BlocPartType;
+use App\Entity\Transaction;
+use App\Form\TransactionType;
 use App\Repository\UserRepository;
 use App\Repository\DepotsRepository;
 use App\Repository\PartenaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -176,8 +178,28 @@ public function partBloquer(Request $request, UserRepository $userRepo,EntityMan
         }
     }
 
+    public function envoie(Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager,User $user): Response
+    {
+     $transaction = new Transaction();
 
+     $userconect=$this->getUser();
+     $user = $this->getDoctrine()->getRepository(User::class)->find( $userconect);
 
+     $transaction->setUser($user);
+     $transaction->setDateEnvoie(new \DateTime());
+     $annee = date('Y');
+     $heure = date('H');
+     $minute = date('i');
+     $codeEnvoi=$annee.$heure.$minute;
+     $transaction->setCodeEnvoie($codeEnvoi);
+
+     $form=$this->createForm(TransactionType::class , $transaction);
+     $form->handleRequest($request);
+     $values=$request->request->all();
+      $form->submit($values);
+      
+
+    }
 
 
 }

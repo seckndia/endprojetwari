@@ -6,7 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\PartenaireRepository")
@@ -17,41 +17,49 @@ class Partenaire
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"list"})
      */
     private $tel;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $status;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="partenaire")
+     * 
      */
     private $users;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $ninea;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Compts", mappedBy="partenaire")
+     *
      */
     private $compts;
 
