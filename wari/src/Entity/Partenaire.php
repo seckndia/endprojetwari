@@ -47,6 +47,7 @@ class Partenaire
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="partenaire")
+     * @Groups({"list"})
      * 
      */
     private $users;

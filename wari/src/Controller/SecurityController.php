@@ -12,6 +12,7 @@ use App\Entity\Partenaire;
 use App\Form\ComptuserType;
 use App\Form\PartenaireType;
 use App\Repository\UserRepository;
+use App\Repository\ComptsRepository;
 use App\Repository\PartenaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,8 @@ class SecurityController extends AbstractController
 {
 
     /**
-     * @Route("/listpart", name="listpart" , methods={"POST"})
+     * @Route("/listpart", name="listpart" , methods={"POST", "GET"})
+     * @IsGranted("ROLE_SUPERADMIN")
      */
     public function listpart( PartenaireRepository $partRepository , SerializerInterface $serializer): Response
     {
@@ -47,9 +49,74 @@ class SecurityController extends AbstractController
             'groups' => ['list']
         ]);
         return new Response($data, 200, [
+
             'Content-Type' => 'application/json'
         ]);
        
+    }
+
+     /**
+     * @Route("/listuserpart", name="listuserpart" , methods={"POST", "GET"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function listuserpart(UserRepository $userRepository , SerializerInterface $serializer): Response
+    {   $partuser=$this->getUser()->getPartenaire();
+        $liste = $userRepository->findBy(["partenaire" => $partuser]);
+        $data = $serializer->serialize($liste, 'json', [
+            'groups' => ['list']
+        ]);
+        return new Response($data, 200, [
+            'Content-Type' => 'application/json'
+        ]);
+       
+    }
+
+    /**
+     * @Route("/listuser", name="listuser" , methods={"POST", "GET"})
+     * @IsGranted("ROLE_SUPERADMIN")
+     * 
+     
+     */
+    public function listUser( UserRepository $userRepository , SerializerInterface $serializer): Response
+    {
+        $listeuser = $userRepository->findAll();
+        $data = $serializer->serialize($listeuser, 'json', [
+            'groups' => ['list']
+        ]);
+        return new Response($data, 200, [
+            'Content-Type' => 'application/json'
+        ]);
+       
+    }
+    /**
+     * @Route("/listcompt", name="listcompt",methods={"POST","GET"})
+     * 
+     */
+    public function listcompt(ComptsRepository $comptRepository , SerializerInterface $serializer): Response
+    {
+        $compte =$this->getUser()->getPartenaire();
+        $listecompt= $comptRepository->findBy(['partenaire' => $compte]);
+        $data = $serializer->serialize($listecompt, 'json', [
+            'groups' => ['list']
+        ]);
+        return new Response($data, 200, [
+
+            'Content-Type' => 'application/json'
+        ]);
+    }
+    /**
+     * @Route("/comptAll", name="listcomptall",methods={"POST","GET"})
+     * 
+     */
+    public function compteAll(ComptsRepository $comptRepository , SerializerInterface $serializer): Response
+    {
+        $listcompte = $comptRepository->findAll();
+        $data = $serializer->serialize($listcompte, 'json', [
+            'groups' => ['list']
+        ]);
+        return new Response($data, 200, [
+            'Content-Type' => 'application/json'
+        ]);
     }
 
     private $passwordEncoder;
@@ -94,13 +161,14 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     }
     $token = $JWTEncoder->encode([
             'username' => $user->getUsername(),
+            'partenaire' => $user->getPartenaire(),
             'exp' => time() + 3600 // 1 hour expiration
         ]);
 
     return new JsonResponse(['token' => $token]);
 
 
-         var_dump($values);die();
+   
         
     }
     /**
@@ -112,7 +180,8 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     //-------Ajout d'un SupertUser et Caissier----/////
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
-        $values=$request->request->all();//si form
+         $values=$request->request->all();//si form
+     
         $file=$request->files->all()['imageName'];
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -343,6 +412,7 @@ public function afectcompt(Request $request, UserRepository $userRepo,EntityMana
     $values=$request->request->all();
 
 $part=new Partenaire();
+
 $uses = new Compts();
 $entityManager = $this->getDoctrine()->getManager();
 $form = $this->createForm(ComptuserType::class, $uses);

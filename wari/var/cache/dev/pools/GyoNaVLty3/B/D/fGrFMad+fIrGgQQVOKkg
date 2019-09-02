@@ -16,6 +16,12 @@ return $getExpiry ? PHP_INT_MAX : Hydrator::hydrate(
             'name' => [
                 'compt',
             ],
+            'methods' => [
+                [
+                    'POST',
+                    'GET',
+                ],
+            ],
         ],
         'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\IsGranted' => [
             'attributes' => [

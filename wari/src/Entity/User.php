@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -21,16 +22,19 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"list"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"list"})
      */
     private $roles = [];
 
@@ -42,27 +46,32 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"list"})
      */
     private $tel;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $adresse;
     private $profil;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $cni;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $status;
     
@@ -93,6 +102,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Partenaire", inversedBy="users")
+     * 
      */
     private $partenaire;
 

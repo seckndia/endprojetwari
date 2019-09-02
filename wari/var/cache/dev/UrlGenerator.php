@@ -4,12 +4,15 @@
 
 return [
     '_twig_error_test' => [['code', '_format'], ['_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], []],
-    'partenaire' => [[], ['_controller' => 'App\\Controller\\PartenaireController::index'], [], [['text', '/api/partenaire']], [], []],
     'compt' => [[], ['_controller' => 'App\\Controller\\PartenaireController::ajoutcompt'], [], [['text', '/api/ajoutcompt']], [], []],
     'depot' => [[], ['_controller' => 'App\\Controller\\PartenaireController::depot'], [], [['text', '/api/depot']], [], []],
     'partBlock' => [['id'], ['_controller' => 'App\\Controller\\PartenaireController::partBloquer'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/partbloquer']], [], []],
     'pdf' => [[], ['_controller' => 'App\\Controller\\PdfController::index'], [], [['text', '/pdf']], [], []],
     'listpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::listpart'], [], [['text', '/api/listpart']], [], []],
+    'listuserpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::listuserpart'], [], [['text', '/api/listuserpart']], [], []],
+    'listuser' => [[], ['_controller' => 'App\\Controller\\SecurityController::listUser'], [], [['text', '/api/listuser']], [], []],
+    'listcompt' => [[], ['_controller' => 'App\\Controller\\SecurityController::listcompt'], [], [['text', '/api/listcompt']], [], []],
+    'listcomptall' => [[], ['_controller' => 'App\\Controller\\SecurityController::compteAll'], [], [['text', '/api/comptAll']], [], []],
     'login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/api/login']], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\SecurityController::register'], [], [['text', '/api/register']], [], []],
     'ajoutpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::ajoutpart'], [], [['text', '/api/ajoutpart']], [], []],

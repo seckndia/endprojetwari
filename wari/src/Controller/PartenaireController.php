@@ -13,8 +13,11 @@ use App\Entity\Transaction;
 use App\Form\TransactionType;
 use App\Repository\UserRepository;
 use App\Repository\DepotsRepository;
+use App\Repository\ComptsRepository;
 use App\Repository\PartenaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,25 +26,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\SerializerInterface;
 /**
  * @Route("/api")
  */
 
 class PartenaireController extends AbstractController
 {
-    /**
-     * @Route("/partenaire", name="partenaire")
-     */
-    public function index()
-    {
-        return $this->render('partenaire/index.html.twig', [
-            'controller_name' => 'PartenaireController',
-        ]);
-    }
+    
 
    
     /**
-     * @Route("/ajoutcompt", name="compt")
+     * @Route("/ajoutcompt", name="compt", methods={"POST","GET"})
      * @IsGranted("ROLE_SUPERADMIN")
      
      */
