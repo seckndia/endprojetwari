@@ -14,7 +14,6 @@ return [
         '/api/listpart' => [[['_route' => 'listpart', '_controller' => 'App\\Controller\\SecurityController::listpart'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/api/listuserpart' => [[['_route' => 'listuserpart', '_controller' => 'App\\Controller\\SecurityController::listuserpart'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/api/listuser' => [[['_route' => 'listuser', '_controller' => 'App\\Controller\\SecurityController::listUser'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
-        '/api/listcompt' => [[['_route' => 'listcompt', '_controller' => 'App\\Controller\\SecurityController::listcompt'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/api/comptAll' => [[['_route' => 'listcomptall', '_controller' => 'App\\Controller\\SecurityController::compteAll'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/api/login' => [
             [['_route' => 'login', '_controller' => 'App\\Controller\\SecurityController::login'], null, ['POST' => 0], null, false, false, null],
@@ -24,6 +23,7 @@ return [
         '/api/ajoutpart' => [[['_route' => 'ajoutpart', '_controller' => 'App\\Controller\\SecurityController::ajoutpart'], null, ['POST' => 0], null, false, false, null]],
         '/api/ajoutpartuser' => [[['_route' => 'ajoutpartuser', '_controller' => 'App\\Controller\\SecurityController::ajoutpartuser'], null, ['POST' => 0], null, false, false, null]],
         '/api/bloquer' => [[['_route' => 'userBlock', '_controller' => 'App\\Controller\\SecurityController::userBloquer'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/api/findcompt' => [[['_route' => 'listcompt', '_controller' => 'App\\Controller\\SecurityController::findcompt'], null, ['POST' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

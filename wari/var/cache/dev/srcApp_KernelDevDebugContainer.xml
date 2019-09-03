@@ -5202,7 +5202,7 @@
         <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.LeWZr13" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.5xvMX0K" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\PartenaireController::ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
@@ -5213,6 +5213,7 @@
         <argument key="App\Controller\SecurityController::ajoutpart" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController::ajoutpartuser" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController::compteAll" type="service" id=".service_locator.ChgUIO_"/>
+        <argument key="App\Controller\SecurityController::findcompt" type="service" id=".service_locator.ChgUIO_"/>
         <argument key="App\Controller\SecurityController::listUser" type="service" id=".service_locator.OIueEnh"/>
         <argument key="App\Controller\SecurityController::listcompt" type="service" id=".service_locator.ChgUIO_"/>
         <argument key="App\Controller\SecurityController::listpart" type="service" id=".service_locator.bMMcOan"/>
@@ -5228,6 +5229,7 @@
         <argument key="App\Controller\SecurityController:ajoutpart" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController:ajoutpartuser" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController:compteAll" type="service" id=".service_locator.ChgUIO_"/>
+        <argument key="App\Controller\SecurityController:findcompt" type="service" id=".service_locator.ChgUIO_"/>
         <argument key="App\Controller\SecurityController:listUser" type="service" id=".service_locator.OIueEnh"/>
         <argument key="App\Controller\SecurityController:listcompt" type="service" id=".service_locator.ChgUIO_"/>
         <argument key="App\Controller\SecurityController:listpart" type="service" id=".service_locator.bMMcOan"/>
@@ -5511,12 +5513,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.LeWZr13"/>
+      <argument type="service" id=".service_locator.5xvMX0K"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.LeWZr13"/>
+      <argument type="service" id=".service_locator.5xvMX0K"/>
     </service>
     <service id="api_platform.swagger.normalizer.api_gateway.inner" class="ApiPlatform\Core\Swagger\Serializer\DocumentationNormalizer" public="false">
       <argument type="service" id="api_platform.metadata.resource.metadata_factory.cached"/>
@@ -5892,7 +5894,7 @@
     <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.lcobucci" public="true"/>
     <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.LeWZr13"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.5xvMX0K"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>

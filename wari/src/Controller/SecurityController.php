@@ -57,7 +57,7 @@ class SecurityController extends AbstractController
 
      /**
      * @Route("/listuserpart", name="listuserpart" , methods={"POST", "GET"})
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted({"ROLE_SUPERADMIN", "ROLE_ADMIN"})
      */
     public function listuserpart(UserRepository $userRepository , SerializerInterface $serializer): Response
     {   $partuser=$this->getUser()->getPartenaire();
@@ -90,6 +90,8 @@ class SecurityController extends AbstractController
     }
     /**
      * @Route("/listcompt", name="listcompt",methods={"POST","GET"})
+     * @IsGranted({"ROLE_SUPERADMIN", "ROLE_ADMIN"})
+     * 
      * 
      */
     public function listcompt(ComptsRepository $comptRepository , SerializerInterface $serializer): Response
@@ -106,6 +108,7 @@ class SecurityController extends AbstractController
     }
     /**
      * @Route("/comptAll", name="listcomptall",methods={"POST","GET"})
+     * @IsGranted("ROLE_SUPERADMIN")
      * 
      */
     public function compteAll(ComptsRepository $comptRepository , SerializerInterface $serializer): Response
@@ -359,11 +362,11 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
    return new Response($validator->validate($form));
 
 }
-//-------Bloquer Debloquer-----------------/////
+//-------Bloquer Debloquer users part-----------------/////
 
 /**
  * @Route("/bloquer", name="userBlock", methods={"GET","POST"})
- * @IsGranted("ROLE_ADMIN")
+ * @IsGranted({"ROLE_SUPERADMIN", "ROLE_ADMIN"})
  */
 
 public function userBloquer(Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager): Response
@@ -439,5 +442,23 @@ return new JsonResponse($data);
 
 
 }
+  /**
+     * @Route("/findcompt", name="listcompt",methods={"POST"})
+     * @IsGranted({"ROLE_SUPERADMIN", "ROLE_ADMIN"})
+     * 
+     * 
+     */
+    public function findcompt(Request $request,ComptsRepository $comptRepository , SerializerInterface $serializer): Response
+    {
+        $values =json_decode($request->getContent(),true);
+        $listecompt= $comptRepository->findOneBy(['numcompt' => $values]);
+        $data = $serializer->serialize($listecompt, 'json', [
+            'groups' => ['find']
+        ]);
+        return new Response($data, 200, [
+
+            'Content-Type' => 'application/json'
+        ]);
+    }
 
 }

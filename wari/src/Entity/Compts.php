@@ -19,24 +19,27 @@ class Compts
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"list"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"list"})
+     * @Groups({"find"})
      */
     private $numcompt;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Groups({"list"})
+     * @Groups({"find"})
      */
     private $solde;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Partenaire", inversedBy="compts")
-     * 
+     * @Groups({"find"})
      */
     private $partenaire;
 
