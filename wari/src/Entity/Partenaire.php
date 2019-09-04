@@ -54,7 +54,7 @@ class Partenaire
     private $users;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      * @Groups({"list"})
      * @Groups({"find"})
      */

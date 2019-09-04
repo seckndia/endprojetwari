@@ -12,8 +12,10 @@ return $getExpiry ? PHP_INT_MAX : Hydrator::hydrate(
             'classes' => [
                 [
                     'App\\Entity\\Compts',
+                    'App\\Entity\\Retrait',
                     'App\\Entity\\Depots',
                     'App\\Entity\\Partenaire',
+                    'App\\Entity\\Envoie',
                 ],
             ],
         ],

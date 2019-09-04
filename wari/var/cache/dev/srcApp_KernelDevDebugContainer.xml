@@ -468,10 +468,16 @@
     <service id="App\Form\DepotType" class="App\Form\DepotType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\EnvoiType" class="App\Form\EnvoiType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\LoginType" class="App\Form\LoginType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\PartenaireType" class="App\Form\PartenaireType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\RetraitType" class="App\Form\RetraitType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\TransactionType" class="App\Form\TransactionType" autowire="true" autoconfigure="true">
@@ -488,11 +494,19 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\EnvoieRepository" class="App\Repository\EnvoieRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\PartenaireRepository" class="App\Repository\PartenaireRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\ProfilRepository" class="App\Repository\ProfilRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\RetraitRepository" class="App\Repository\RetraitRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -796,8 +810,10 @@
         <argument>App\Form\ComptType</argument>
         <argument>App\Form\ComptuserType</argument>
         <argument>App\Form\DepotType</argument>
+        <argument>App\Form\EnvoiType</argument>
         <argument>App\Form\LoginType</argument>
         <argument>App\Form\PartenaireType</argument>
+        <argument>App\Form\RetraitType</argument>
         <argument>App\Form\TransactionType</argument>
         <argument>App\Form\UserType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -1105,7 +1121,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.T5uvrkW"/>
+      <argument type="service" id=".service_locator.5BVgUFv"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -2287,7 +2303,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.Nv53Fmt"/>
+      <argument type="service" id=".service_locator.fiKQC3K"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4954,10 +4970,14 @@
     <service id=".abstract.instanceof.App\Form\ComptuserType" class="App\Form\ComptuserType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\DepotType" class="App\Form\DepotType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\DepotType" class="App\Form\DepotType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EnvoiType" class="App\Form\EnvoiType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\EnvoiType" class="App\Form\EnvoiType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\LoginType" class="App\Form\LoginType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\LoginType" class="App\Form\LoginType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PartenaireType" class="App\Form\PartenaireType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\PartenaireType" class="App\Form\PartenaireType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RetraitType" class="App\Form\RetraitType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\RetraitType" class="App\Form\RetraitType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TransactionType" class="App\Form\TransactionType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\TransactionType" class="App\Form\TransactionType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
@@ -4966,10 +4986,14 @@
     <service id=".abstract.instanceof.App\Repository\ComptsRepository" class="App\Repository\ComptsRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DepotsRepository" class="App\Repository\DepotsRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\DepotsRepository" class="App\Repository\DepotsRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EnvoieRepository" class="App\Repository\EnvoieRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\EnvoieRepository" class="App\Repository\EnvoieRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PartenaireRepository" class="App\Repository\PartenaireRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\PartenaireRepository" class="App\Repository\PartenaireRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ProfilRepository" class="App\Repository\ProfilRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ProfilRepository" class="App\Repository\ProfilRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RetraitRepository" class="App\Repository\RetraitRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\RetraitRepository" class="App\Repository\RetraitRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TarifsRepository" class="App\Repository\TarifsRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TarifsRepository" class="App\Repository\TarifsRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TransactionRepository" class="App\Repository\TransactionRepository" autowire="true" abstract="true"/>
@@ -5160,6 +5184,12 @@
         <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.ZIsCxOI" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.bMMcOan" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5202,12 +5232,12 @@
         <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.5xvMX0K" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator._L5d0Ui" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\PartenaireController::ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
         <argument key="App\Controller\PartenaireController::depot" type="service" id=".service_locator.9V_Ytlz"/>
-        <argument key="App\Controller\PartenaireController::envoie" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\PartenaireController::envoie" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\PartenaireController::partBloquer" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController::afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController::ajoutpart" type="service" id=".service_locator.2B8PUum"/>
@@ -5223,7 +5253,7 @@
         <argument key="App\Controller\SecurityController::userBloquer" type="service" id=".service_locator.U2OyWts"/>
         <argument key="App\Controller\PartenaireController:ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
         <argument key="App\Controller\PartenaireController:depot" type="service" id=".service_locator.9V_Ytlz"/>
-        <argument key="App\Controller\PartenaireController:envoie" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\PartenaireController:envoie" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\PartenaireController:partBloquer" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController:afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController:ajoutpart" type="service" id=".service_locator.2B8PUum"/>
@@ -5298,7 +5328,7 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.T5uvrkW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.5BVgUFv" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\BlocPartType" type="service" id="App\Form\BlocPartType"/>
@@ -5306,8 +5336,10 @@
         <argument key="App\Form\ComptType" type="service" id="App\Form\ComptType"/>
         <argument key="App\Form\ComptuserType" type="service" id="App\Form\ComptuserType"/>
         <argument key="App\Form\DepotType" type="service" id="App\Form\DepotType"/>
+        <argument key="App\Form\EnvoiType" type="service" id="App\Form\EnvoiType"/>
         <argument key="App\Form\LoginType" type="service" id="App\Form\LoginType"/>
         <argument key="App\Form\PartenaireType" type="service" id="App\Form\PartenaireType"/>
+        <argument key="App\Form\RetraitType" type="service" id="App\Form\RetraitType"/>
         <argument key="App\Form\TransactionType" type="service" id="App\Form\TransactionType"/>
         <argument key="App\Form\UserType" type="service" id="App\Form\UserType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
@@ -5324,13 +5356,15 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.Nv53Fmt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.fiKQC3K" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ComptsRepository" type="service" id="App\Repository\ComptsRepository"/>
         <argument key="App\Repository\DepotsRepository" type="service" id="App\Repository\DepotsRepository"/>
+        <argument key="App\Repository\EnvoieRepository" type="service" id="App\Repository\EnvoieRepository"/>
         <argument key="App\Repository\PartenaireRepository" type="service" id="App\Repository\PartenaireRepository"/>
         <argument key="App\Repository\ProfilRepository" type="service" id="App\Repository\ProfilRepository"/>
+        <argument key="App\Repository\RetraitRepository" type="service" id="App\Repository\RetraitRepository"/>
         <argument key="App\Repository\TarifsRepository" type="service" id="App\Repository\TarifsRepository"/>
         <argument key="App\Repository\TransactionRepository" type="service" id="App\Repository\TransactionRepository"/>
         <argument key="App\Repository\UserRepository" type="service" id="App\Repository\UserRepository"/>
@@ -5513,12 +5547,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.5xvMX0K"/>
+      <argument type="service" id=".service_locator._L5d0Ui"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.5xvMX0K"/>
+      <argument type="service" id=".service_locator._L5d0Ui"/>
     </service>
     <service id="api_platform.swagger.normalizer.api_gateway.inner" class="ApiPlatform\Core\Swagger\Serializer\DocumentationNormalizer" public="false">
       <argument type="service" id="api_platform.metadata.resource.metadata_factory.cached"/>
@@ -5894,7 +5928,7 @@
     <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.lcobucci" public="true"/>
     <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.5xvMX0K"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator._L5d0Ui"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>

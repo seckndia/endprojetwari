@@ -2,29 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Transaction;
+use App\Entity\Retrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TransactionType extends AbstractType
+class RetraitType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cni')
-            ->add('montant')
-            ->add('status')
-            ->add('Agence')
-       
+            ->add('nom')
+            ->add('prenom')
+            ->add('tel')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Transaction::class,
-            'csrf_protection'=>false
+            'data_class' => Retrait::class,
         ]);
     }
 }

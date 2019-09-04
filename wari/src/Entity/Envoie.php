@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TarifsRepository")
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass="App\Repository\EnvoieRepository")
  */
-class Tarifs
+class Envoie
 {
     /**
      * @ORM\Id()
@@ -19,22 +21,23 @@ class Tarifs
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $borneInferieure;
+    private $nomEnvoyeur;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenomEnvoyeur;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $borneSuperieure;
+    private $telEnvoyeur;
 
+   
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $valeur;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Transaction", mappedBy="tarif")
+     * @ORM\OneToMany(targetEntity="App\Entity\Transaction", mappedBy="envoie")
      */
     private $transactions;
 
@@ -48,41 +51,43 @@ class Tarifs
         return $this->id;
     }
 
-    public function getBorneInferieure(): ?int
+    public function getNomEnvoyeur(): ?string
     {
-        return $this->borneInferieure;
+        return $this->nomEnvoyeur;
     }
 
-    public function setBorneInferieure(int $borneInferieure): self
+    public function setNomEnvoyeur(string $nomEnvoyeur): self
     {
-        $this->borneInferieure = $borneInferieure;
+        $this->nomEnvoyeur = $nomEnvoyeur;
 
         return $this;
     }
 
-    public function getBorneSuperieure(): ?int
+    public function getPrenomEnvoyeur(): ?string
     {
-        return $this->borneSuperieure;
+        return $this->prenomEnvoyeur;
     }
 
-    public function setBorneSuperieure(int $borneSuperieure): self
+    public function setPrenomEnvoyeur(string $prenomEnvoyeur): self
     {
-        $this->borneSuperieure = $borneSuperieure;
+        $this->prenomEnvoyeur = $prenomEnvoyeur;
 
         return $this;
     }
 
-    public function getValeur(): ?int
+    public function getTelEnvoyeur(): ?int
     {
-        return $this->valeur;
+        return $this->telEnvoyeur;
     }
 
-    public function setValeur(int $valeur): self
+    public function setTelEnvoyeur(int $telEnvoyeur): self
     {
-        $this->valeur = $valeur;
+        $this->telEnvoyeur = $telEnvoyeur;
 
         return $this;
     }
+
+ 
 
     /**
      * @return Collection|Transaction[]
@@ -96,7 +101,7 @@ class Tarifs
     {
         if (!$this->transactions->contains($transaction)) {
             $this->transactions[] = $transaction;
-            $transaction->setTarif($this);
+            $transaction->setEnvoie($this);
         }
 
         return $this;
@@ -107,8 +112,8 @@ class Tarifs
         if ($this->transactions->contains($transaction)) {
             $this->transactions->removeElement($transaction);
             // set the owning side to null (unless already changed)
-            if ($transaction->getTarif() === $this) {
-                $transaction->setTarif(null);
+            if ($transaction->getEnvoie() === $this) {
+                $transaction->setEnvoie(null);
             }
         }
 

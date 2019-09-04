@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TarifsRepository")
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass="App\Repository\RetraitRepository")
  */
-class Tarifs
+class Retrait
 {
     /**
      * @ORM\Id()
@@ -19,22 +21,22 @@ class Tarifs
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $borneInferieure;
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $borneSuperieure;
+    private $tel;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $valeur;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Transaction", mappedBy="tarif")
+     * @ORM\OneToMany(targetEntity="App\Entity\Transaction", mappedBy="retrait")
      */
     private $transactions;
 
@@ -48,38 +50,38 @@ class Tarifs
         return $this->id;
     }
 
-    public function getBorneInferieure(): ?int
+    public function getNom(): ?string
     {
-        return $this->borneInferieure;
+        return $this->nom;
     }
 
-    public function setBorneInferieure(int $borneInferieure): self
+    public function setNom(string $nom): self
     {
-        $this->borneInferieure = $borneInferieure;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getBorneSuperieure(): ?int
+    public function getPrenom(): ?string
     {
-        return $this->borneSuperieure;
+        return $this->prenom;
     }
 
-    public function setBorneSuperieure(int $borneSuperieure): self
+    public function setPrenom(string $prenom): self
     {
-        $this->borneSuperieure = $borneSuperieure;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
-    public function getValeur(): ?int
+    public function getTel(): ?int
     {
-        return $this->valeur;
+        return $this->tel;
     }
 
-    public function setValeur(int $valeur): self
+    public function setTel(int $tel): self
     {
-        $this->valeur = $valeur;
+        $this->tel = $tel;
 
         return $this;
     }
@@ -96,7 +98,7 @@ class Tarifs
     {
         if (!$this->transactions->contains($transaction)) {
             $this->transactions[] = $transaction;
-            $transaction->setTarif($this);
+            $transaction->setRetrait($this);
         }
 
         return $this;
@@ -107,8 +109,8 @@ class Tarifs
         if ($this->transactions->contains($transaction)) {
             $this->transactions->removeElement($transaction);
             // set the owning side to null (unless already changed)
-            if ($transaction->getTarif() === $this) {
-                $transaction->setTarif(null);
+            if ($transaction->getRetrait() === $this) {
+                $transaction->setRetrait(null);
             }
         }
 

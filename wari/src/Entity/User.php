@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @Vich\Uploadable
  */
+
 class User implements UserInterface
 {
     /**
@@ -64,7 +65,7 @@ class User implements UserInterface
     private $profil;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      * @Groups({"list"})
      */
     private $cni;

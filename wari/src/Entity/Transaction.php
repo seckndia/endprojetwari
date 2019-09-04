@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TransactionRepository")
  */
-class Transaction
+
+class  Transaction
 {
     /**
      * @ORM\Id()
@@ -16,25 +17,18 @@ class Transaction
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $nomEnvoi;
+    
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $prenomEvoie;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $cniEnvoie;
+    private $cni;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
      */
-    private $montantEnvoi;
+    private $montant;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -46,30 +40,14 @@ class Transaction
      */
     private $codeEnvoie;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $cniRetrait;
+  
 
-    /**
-     * @ORM\Column(type="bigint", nullable=true)
-     */
-    private $montantRetrait;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateRetrait;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $telEnvoi;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $telRetrait;
 
     /**
      * @ORM\Column(type="bigint")
@@ -101,55 +79,56 @@ class Transaction
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Agence;
+
+    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Retrait", inversedBy="transactions")
+     */
+    private $retrait;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Envoie", inversedBy="transactions")
+     */
+    private $envoie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tarifs", inversedBy="transactions")
+     */
+    private $tarif;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomEnvoi(): ?string
+  
+
+
+    public function getCni(): ?string
     {
-        return $this->nomEnvoi;
+        return $this->cni;
     }
 
-    public function setNomEnvoi(?string $nomEnvoi): self
+    public function setCni(?string $cni): self
     {
-        $this->nomEnvoi = $nomEnvoi;
+        $this->cniEnvoie = $cni;
 
         return $this;
     }
 
-    public function getPrenomEvoie(): ?string
+    public function getMontant(): ?int
     {
-        return $this->prenomEvoie;
+        return $this->montant;
     }
 
-    public function setPrenomEvoie(?string $prenomEvoie): self
+    public function setMontant(?int $montant): self
     {
-        $this->prenomEvoie = $prenomEvoie;
-
-        return $this;
-    }
-
-    public function getCniEnvoie(): ?string
-    {
-        return $this->cniEnvoie;
-    }
-
-    public function setCniEnvoie(?string $cniEnvoie): self
-    {
-        $this->cniEnvoie = $cniEnvoie;
-
-        return $this;
-    }
-
-    public function getMontantEnvoi(): ?int
-    {
-        return $this->montantEnvoi;
-    }
-
-    public function setMontantEnvoi(?int $montantEnvoi): self
-    {
-        $this->montantEnvoi = $montantEnvoi;
+        $this->montant = $montant;
 
         return $this;
     }
@@ -178,29 +157,7 @@ class Transaction
         return $this;
     }
 
-    public function getCniRetrait(): ?string
-    {
-        return $this->cniRetrait;
-    }
-
-    public function setCniRetrait(?string $cniRetrait): self
-    {
-        $this->cniRetrait = $cniRetrait;
-
-        return $this;
-    }
-
-    public function getMontantRetrait(): ?int
-    {
-        return $this->montantRetrait;
-    }
-
-    public function setMontantRetrait(?int $montantRetrait): self
-    {
-        $this->montantRetrait = $montantRetrait;
-
-        return $this;
-    }
+ 
 
     public function getDateRetrait(): ?\DateTimeInterface
     {
@@ -214,29 +171,9 @@ class Transaction
         return $this;
     }
 
-    public function getTelEnvoi(): ?int
-    {
-        return $this->telEnvoi;
-    }
+   
 
-    public function setTelEnvoi(?int $telEnvoi): self
-    {
-        $this->telEnvoi = $telEnvoi;
-
-        return $this;
-    }
-
-    public function getTelRetrait(): ?int
-    {
-        return $this->telRetrait;
-    }
-
-    public function setTelRetrait(?int $telRetrait): self
-    {
-        $this->telRetrait = $telRetrait;
-
-        return $this;
-    }
+    
 
     public function getCommissionEtat(): ?int
     {
@@ -306,6 +243,54 @@ class Transaction
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getAgence(): ?string
+    {
+        return $this->Agence;
+    }
+
+    public function setAgence(string $Agence): self
+    {
+        $this->Agence = $Agence;
+
+        return $this;
+    }
+
+    public function getEnvoie(): ?Envoie
+    {
+        return $this->envoie;
+    }
+
+    public function setEnvoie(?Envoie $envoie): self
+    {
+        $this->envoie = $envoie;
+
+        return $this;
+    }
+
+    public function getRetrait(): ?Retrait
+    {
+        return $this->retrait;
+    }
+
+    public function setRetrait(?Retrait $retrait): self
+    {
+        $this->retrait = $retrait;
+
+        return $this;
+    }
+
+    public function getTarif(): ?Tarifs
+    {
+        return $this->tarif;
+    }
+
+    public function setTarif(?Tarifs $tarif): self
+    {
+        $this->tarif = $tarif;
 
         return $this;
     }

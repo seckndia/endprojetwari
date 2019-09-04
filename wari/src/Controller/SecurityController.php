@@ -91,8 +91,6 @@ class SecurityController extends AbstractController
     /**
      * @Route("/listcompt", name="listcompt",methods={"POST","GET"})
      * @IsGranted({"ROLE_SUPERADMIN", "ROLE_ADMIN"})
-     * 
-     * 
      */
     public function listcompt(ComptsRepository $comptRepository , SerializerInterface $serializer): Response
     {
@@ -165,6 +163,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     $token = $JWTEncoder->encode([
             'username' => $user->getUsername(),
             'partenaire' => $user->getPartenaire(),
+            'roles'=> $user->getRoles(),
             'exp' => time() + 3600 // 1 hour expiration
         ]);
 
@@ -215,8 +214,8 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
             $entityManager->flush();
 
             $data = [
-                'status' => 201,
-                'message' => 'L\'utilisateur ajouter'
+                'statut' => 201,
+                'Message' => 'L\'utilisateur ajouter'
             ];
 
             return new JsonResponse($data, 201);
@@ -298,8 +297,8 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
              $entityManager->flush();
      
              $data = [
-                 'statu' => 201,
-                 'messages' => 'Le partenaire ajouter'
+                 'statut' => 201,
+                 'Messages' => 'Le partenaire ajouter'
              ];
  
              return new JsonResponse($data, 201);
@@ -387,8 +386,8 @@ public function userBloquer(Request $request, UserRepository $userRepo,EntityMan
             $user->setStatus("bloquer");
             $entityManager->flush();
             $data = [
-                'status' => 200,
-                'message' => 'utilisateur  bloquer'
+                'statu' => 200,
+                'messages' => 'utilisateur  bloquer'
             ];
             return new JsonResponse($data);
         }
@@ -414,7 +413,7 @@ public function afectcompt(Request $request, UserRepository $userRepo,EntityMana
 
     $values=$request->request->all();
 
-$part=new Partenaire();
+$part = new Partenaire();
 
 $uses = new Compts();
 $entityManager = $this->getDoctrine()->getManager();
@@ -443,7 +442,7 @@ return new JsonResponse($data);
 
 }
   /**
-     * @Route("/findcompt", name="listcompt",methods={"POST"})
+     * @Route("/findcompt", name="findcompt",methods={"POST"})
      * @IsGranted({"ROLE_SUPERADMIN", "ROLE_ADMIN"})
      * 
      * 
