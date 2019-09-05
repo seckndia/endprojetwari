@@ -268,7 +268,7 @@ class PartenaireController extends AbstractController
         $trans->setEnvoie($envoie);
         $trans->setRetrait($retrait);
 
-        $trans->setStatus("Envoyer");
+        $trans->setStatus("Disponible");
 
 
         $compt = $this->getDoctrine()->getRepository(Compts::class)->findOneBy(['partenaire' => $user->getPartenaire()]);
@@ -320,7 +320,7 @@ public function retrait(Request $request, EntityManagerInterface $entityManager)
        return new Response('Le code saisi est incorecte .Veuillez ressayer un autre  '); 
      }
 
-      else if($retrait->getCodeEnvoie()==$values['codeEnvoie']  ){
+      else if($retrait->getCodeEnvoie()==$values['codeEnvoie'] && $retrait->getStatus()=="retirer" ){
                     return new Response('Le code est déja retiré',Response::HTTP_CREATED);
                 }
      
@@ -333,7 +333,7 @@ public function retrait(Request $request, EntityManagerInterface $entityManager)
     $entityManager->persist($retrait);
     $entityManager->flush(); 
    
-    return new Response('retrait fait  '. $retrait->getMontant()); 
+    return new Response('Retrait effectuer. Voici le montant:  '. $retrait->getMontant()); 
     
 
 
