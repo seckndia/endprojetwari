@@ -303,7 +303,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
  
              return new JsonResponse($data, 201);
 
-             return new Response($validator->validate($form));
+             //return new Response($validator->validate($form));
  
             }
     /**
@@ -413,7 +413,6 @@ public function afectcompt(Request $request, UserRepository $userRepo,EntityMana
 
     $values=$request->request->all();
 
-$part = new Partenaire();
 
 $uses = new Compts();
 $entityManager = $this->getDoctrine()->getManager();

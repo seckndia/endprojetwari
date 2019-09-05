@@ -12,6 +12,7 @@ use App\Entity\Retrait;
 use App\Form\ComptType;
 use App\Form\DepotType;
 use App\Form\EnvoiType;
+use App\Form\RetraiType;
 use App\Form\RetraitType;
 use App\Entity\Partenaire;
 use App\Form\BlocPartType;
@@ -19,11 +20,12 @@ use App\Entity\Transaction;
 use App\Form\ComptuserType;
 use App\Form\TransactionType;
 use App\Repository\UserRepository;
-use App\Repository\ComptsRepository;
 
+use App\Repository\ComptsRepository;
 use App\Repository\DepotsRepository;
 use App\Repository\PartenaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\TransactionRepository;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -135,14 +137,14 @@ class PartenaireController extends AbstractController
 
             $entityManager->flush();
             $data = [
-                'statu' => 201,
+                'statut' => 201,
                 'messages' => 'Depot effectuer avec succées'
             ];
 
             return new JsonResponse($data, 201);
         } else {
             $err = [
-                'statu' => 500,
+                'statut' => 500,
                 'messages' => 'veillez saisir un montant superieur ou egal a 75000'
             ];
 
@@ -174,23 +176,24 @@ class PartenaireController extends AbstractController
             $part->setStatus("bloquer");
             $entityManager->flush();
             $data = [
-                'status' => 200,
-                'message' => 'partenaire bloquer'
+                'statu' => 200,
+                'Message' => 'partenaire bloquer'
             ];
             return new JsonResponse($data);
         } else {
             $part->setStatus("Active");
             $entityManager->flush();
             $data = [
-                'status' => 200,
-                'message' => 'partenaire debloquer'
+                'statu' => 200,
+                'Message' => 'partenaire debloquer'
             ];
             return new JsonResponse($data);
         }
     }
     /**
      *@Route("/envoi", name="envoi", methods={"POST"})
-
+     *@IsGranted({"ROLE_USER", "ROLE_ADMIN"})
+     
      */
 
     public function envoie(Request $request, EntityManagerInterface $entityManager): Response
@@ -260,11 +263,12 @@ class PartenaireController extends AbstractController
 
         $trans->setCodeEnvoie($code);
         $trans->setDateEnvoie(new \DateTime());
-        $trans->setDateRetrait(new \DateTime());
         $user = $this->getUser();
         $trans->setUser($user);
         $trans->setEnvoie($envoie);
         $trans->setRetrait($retrait);
+
+        $trans->setStatus("Envoyer");
 
 
         $compt = $this->getDoctrine()->getRepository(Compts::class)->findOneBy(['partenaire' => $user->getPartenaire()]);
@@ -285,8 +289,9 @@ class PartenaireController extends AbstractController
             $entityManager->flush();
             $data = [
                 'status' => 200,
-                'message' => 'Envoi Réussit
-            . voici le code' . $trans->getCodeEnvoie()
+                'message' =>  'Bienvenue chez wari: '.$envoie->getPrenomEnvoyeur(). 
+                ' '.$envoie->getNomEnvoyeur(). '  vous à transfert: '.$trans->getMontant().'  Voici le code : '.$trans->getCodeEnvoie()
+                
             ];
             return new JsonResponse($data);
         } else {
@@ -297,4 +302,40 @@ class PartenaireController extends AbstractController
             return new JsonResponse($data);
         }
     }
+/**
+ * @Route("/retrait", name="retrait", methods={"POST","GET"})
+ * @IsGranted({"ROLE_USER", "ROLE_ADMIN"})
+ */
+public function retrait(Request $request, EntityManagerInterface $entityManager): Response
+
+{
+
+ $values = json_decode($request->getContent(),true); 
+
+    $user = $this->getUser();
+
+    $retrait= $this->getDoctrine()->getRepository(Transaction::class)->findOneBy(['codeEnvoie' => $values['codeEnvoie']]);   
+            if(!$retrait){
+
+       return new Response('Le code saisi est incorecte .Veuillez ressayer un autre  '); 
+     }
+
+      else if($retrait->getCodeEnvoie()==$values['codeEnvoie']  ){
+                    return new Response('Le code est déja retiré',Response::HTTP_CREATED);
+                }
+     
+        $retrait->setDateretrait(new \DateTime());
+        $retrait->setStatus("retirer");
+        $retrait->setCni($values['cni']);
+     
+        $retrait->setUser($user);
+   
+    $entityManager->persist($retrait);
+    $entityManager->flush(); 
+   
+    return new Response('retrait fait  '. $retrait->getMontant()); 
+    
+
+
+}
 }

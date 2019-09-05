@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\TransactionRepository")
  */
 
-class  Transaction
+class   Transaction
 {
     /**
      * @ORM\Id()
@@ -116,7 +116,7 @@ class  Transaction
 
     public function setCni(?string $cni): self
     {
-        $this->cniEnvoie = $cni;
+        $this->cni = $cni;
 
         return $this;
     }

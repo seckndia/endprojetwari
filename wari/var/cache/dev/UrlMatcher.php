@@ -11,6 +11,7 @@ return [
         '/api/ajoutcompt' => [[['_route' => 'compt', '_controller' => 'App\\Controller\\PartenaireController::ajoutcompt'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/api/depot' => [[['_route' => 'depot', '_controller' => 'App\\Controller\\PartenaireController::depot'], null, ['POST' => 0], null, false, false, null]],
         '/api/envoi' => [[['_route' => 'envoi', '_controller' => 'App\\Controller\\PartenaireController::envoie'], null, ['POST' => 0], null, false, false, null]],
+        '/api/retrait' => [[['_route' => 'retrait', '_controller' => 'App\\Controller\\PartenaireController::retrait'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/pdf' => [[['_route' => 'pdf', '_controller' => 'App\\Controller\\PdfController::index'], null, null, null, false, false, null]],
         '/api/listpart' => [[['_route' => 'listpart', '_controller' => 'App\\Controller\\SecurityController::listpart'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/api/listuserpart' => [[['_route' => 'listuserpart', '_controller' => 'App\\Controller\\SecurityController::listuserpart'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],

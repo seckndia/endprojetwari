@@ -8,6 +8,7 @@ return [
     'depot' => [[], ['_controller' => 'App\\Controller\\PartenaireController::depot'], [], [['text', '/api/depot']], [], []],
     'partBlock' => [['id'], ['_controller' => 'App\\Controller\\PartenaireController::partBloquer'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/partbloquer']], [], []],
     'envoi' => [[], ['_controller' => 'App\\Controller\\PartenaireController::envoie'], [], [['text', '/api/envoi']], [], []],
+    'retrait' => [[], ['_controller' => 'App\\Controller\\PartenaireController::retrait'], [], [['text', '/api/retrait']], [], []],
     'pdf' => [[], ['_controller' => 'App\\Controller\\PdfController::index'], [], [['text', '/pdf']], [], []],
     'listpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::listpart'], [], [['text', '/api/listpart']], [], []],
     'listuserpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::listuserpart'], [], [['text', '/api/listuserpart']], [], []],

@@ -477,6 +477,9 @@
     <service id="App\Form\PartenaireType" class="App\Form\PartenaireType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\RetraiType" class="App\Form\RetraiType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\RetraitType" class="App\Form\RetraitType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -813,6 +816,7 @@
         <argument>App\Form\EnvoiType</argument>
         <argument>App\Form\LoginType</argument>
         <argument>App\Form\PartenaireType</argument>
+        <argument>App\Form\RetraiType</argument>
         <argument>App\Form\RetraitType</argument>
         <argument>App\Form\TransactionType</argument>
         <argument>App\Form\UserType</argument>
@@ -1121,7 +1125,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.5BVgUFv"/>
+      <argument type="service" id=".service_locator.zUOKvVI"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4976,6 +4980,8 @@
     <service id=".abstract.instanceof.App\Form\LoginType" class="App\Form\LoginType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PartenaireType" class="App\Form\PartenaireType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\PartenaireType" class="App\Form\PartenaireType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RetraiType" class="App\Form\RetraiType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\RetraiType" class="App\Form\RetraiType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RetraitType" class="App\Form\RetraitType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RetraitType" class="App\Form\RetraitType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TransactionType" class="App\Form\TransactionType" autowire="true" abstract="true"/>
@@ -5232,13 +5238,14 @@
         <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator._L5d0Ui" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.3UdPDCR" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\PartenaireController::ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
         <argument key="App\Controller\PartenaireController::depot" type="service" id=".service_locator.9V_Ytlz"/>
         <argument key="App\Controller\PartenaireController::envoie" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\PartenaireController::partBloquer" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\PartenaireController::retrait" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\SecurityController::afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController::ajoutpart" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController::ajoutpartuser" type="service" id=".service_locator.2B8PUum"/>
@@ -5255,6 +5262,7 @@
         <argument key="App\Controller\PartenaireController:depot" type="service" id=".service_locator.9V_Ytlz"/>
         <argument key="App\Controller\PartenaireController:envoie" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\PartenaireController:partBloquer" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\PartenaireController:retrait" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\SecurityController:afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController:ajoutpart" type="service" id=".service_locator.2B8PUum"/>
         <argument key="App\Controller\SecurityController:ajoutpartuser" type="service" id=".service_locator.2B8PUum"/>
@@ -5328,7 +5336,7 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.5BVgUFv" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.zUOKvVI" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\BlocPartType" type="service" id="App\Form\BlocPartType"/>
@@ -5339,6 +5347,7 @@
         <argument key="App\Form\EnvoiType" type="service" id="App\Form\EnvoiType"/>
         <argument key="App\Form\LoginType" type="service" id="App\Form\LoginType"/>
         <argument key="App\Form\PartenaireType" type="service" id="App\Form\PartenaireType"/>
+        <argument key="App\Form\RetraiType" type="service" id="App\Form\RetraiType"/>
         <argument key="App\Form\RetraitType" type="service" id="App\Form\RetraitType"/>
         <argument key="App\Form\TransactionType" type="service" id="App\Form\TransactionType"/>
         <argument key="App\Form\UserType" type="service" id="App\Form\UserType"/>
@@ -5547,12 +5556,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator._L5d0Ui"/>
+      <argument type="service" id=".service_locator.3UdPDCR"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator._L5d0Ui"/>
+      <argument type="service" id=".service_locator.3UdPDCR"/>
     </service>
     <service id="api_platform.swagger.normalizer.api_gateway.inner" class="ApiPlatform\Core\Swagger\Serializer\DocumentationNormalizer" public="false">
       <argument type="service" id="api_platform.metadata.resource.metadata_factory.cached"/>
@@ -5928,7 +5937,7 @@
     <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.lcobucci" public="true"/>
     <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator._L5d0Ui"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.3UdPDCR"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>
