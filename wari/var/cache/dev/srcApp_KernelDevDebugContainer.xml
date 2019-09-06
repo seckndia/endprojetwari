@@ -5182,12 +5182,11 @@
         <argument key="repo" type="service" id="App\Repository\DepotsRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.n980HX4" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.CgPOzIJ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service" id="doctrine.orm.default_entity_manager"/>
-        <argument key="user" type="service" id=".errored..service_locator.n980HX4.App\Entity\User"/>
-        <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
+        <argument key="part" type="service" id=".errored..service_locator.CgPOzIJ.App\Entity\Partenaire"/>
       </argument>
     </service>
     <service id=".service_locator.ZIsCxOI" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5231,20 +5230,29 @@
         <argument key="validator" type="service" id="validator"/>
       </argument>
     </service>
-    <service id=".service_locator.U2OyWts" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.MH_eETn" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service" id="doctrine.orm.default_entity_manager"/>
         <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
+        <argument key="users" type="service" id=".errored..service_locator.MH_eETn.App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.3UdPDCR" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.n980HX4" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service" id="doctrine.orm.default_entity_manager"/>
+        <argument key="user" type="service" id=".errored..service_locator.n980HX4.App\Entity\User"/>
+        <argument key="userRepo" type="service" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.KOnQsCH" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\PartenaireController::ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
         <argument key="App\Controller\PartenaireController::depot" type="service" id=".service_locator.9V_Ytlz"/>
         <argument key="App\Controller\PartenaireController::envoie" type="service" id=".service_locator.ZIsCxOI"/>
-        <argument key="App\Controller\PartenaireController::partBloquer" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\PartenaireController::partBloquer" type="service" id=".service_locator.CgPOzIJ"/>
         <argument key="App\Controller\PartenaireController::retrait" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\SecurityController::afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController::ajoutpart" type="service" id=".service_locator.2B8PUum"/>
@@ -5257,11 +5265,11 @@
         <argument key="App\Controller\SecurityController::listuserpart" type="service" id=".service_locator.OIueEnh"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.0xDS.HG"/>
         <argument key="App\Controller\SecurityController::register" type="service" id=".service_locator.2B8PUum"/>
-        <argument key="App\Controller\SecurityController::userBloquer" type="service" id=".service_locator.U2OyWts"/>
+        <argument key="App\Controller\SecurityController::userBloquer" type="service" id=".service_locator.MH_eETn"/>
         <argument key="App\Controller\PartenaireController:ajoutcompt" type="service" id=".service_locator.xHj_yg."/>
         <argument key="App\Controller\PartenaireController:depot" type="service" id=".service_locator.9V_Ytlz"/>
         <argument key="App\Controller\PartenaireController:envoie" type="service" id=".service_locator.ZIsCxOI"/>
-        <argument key="App\Controller\PartenaireController:partBloquer" type="service" id=".service_locator.n980HX4"/>
+        <argument key="App\Controller\PartenaireController:partBloquer" type="service" id=".service_locator.CgPOzIJ"/>
         <argument key="App\Controller\PartenaireController:retrait" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\SecurityController:afectcompt" type="service" id=".service_locator.n980HX4"/>
         <argument key="App\Controller\SecurityController:ajoutpart" type="service" id=".service_locator.2B8PUum"/>
@@ -5274,7 +5282,7 @@
         <argument key="App\Controller\SecurityController:listuserpart" type="service" id=".service_locator.OIueEnh"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.0xDS.HG"/>
         <argument key="App\Controller\SecurityController:register" type="service" id=".service_locator.2B8PUum"/>
-        <argument key="App\Controller\SecurityController:userBloquer" type="service" id=".service_locator.U2OyWts"/>
+        <argument key="App\Controller\SecurityController:userBloquer" type="service" id=".service_locator.MH_eETn"/>
       </argument>
     </service>
     <service id=".service_locator.LtnrEkg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5556,12 +5564,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.3UdPDCR"/>
+      <argument type="service" id=".service_locator.KOnQsCH"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.3UdPDCR"/>
+      <argument type="service" id=".service_locator.KOnQsCH"/>
     </service>
     <service id="api_platform.swagger.normalizer.api_gateway.inner" class="ApiPlatform\Core\Swagger\Serializer\DocumentationNormalizer" public="false">
       <argument type="service" id="api_platform.metadata.resource.metadata_factory.cached"/>
@@ -5598,6 +5606,8 @@
       <argument type="service" id="api_platform.metadata.property.metadata_factory.cached"/>
       <argument type="service" id="api_platform.path_segment_name_generator.underscore"/>
     </service>
+    <service id=".errored..service_locator.CgPOzIJ.App\Entity\Partenaire" class="App\Entity\Partenaire"/>
+    <service id=".errored..service_locator.MH_eETn.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.n980HX4.App\Entity\User" class="App\Entity\User"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.Jxzaw.G"/>
@@ -5937,7 +5947,7 @@
     <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.lcobucci" public="true"/>
     <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.3UdPDCR"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.KOnQsCH"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>

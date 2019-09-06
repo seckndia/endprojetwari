@@ -154,23 +154,23 @@ class PartenaireController extends AbstractController
     //---------Bloquer Debloquer partenaire----------///
 
     /**
-     * @Route("/partbloquer/{id}", name="partBlock", methods={"PUT"})
+     * @Route("/partbloquer/{id}", name="partBlock", methods={"PUT","GET"})
      * @IsGranted("ROLE_SUPERADMIN")
 
      */
 
-    public function partBloquer(Request $request, UserRepository $userRepo, EntityManagerInterface $entityManager, User $user): Response
+    public function partBloquer(Request $request, EntityManagerInterface $entityManager, Partenaire $part): Response
     {
 
-        $values = $request->request->all(); //si form
-        $part = new Partenaire();
-        $form = $this->createForm(BlocPartType::class, $part);
+        //$values = $request->request->all(); //si form
+        //$part = new Partenaire();
+        /* $form = $this->createForm(BlocPartType::class, $part);
         $form->handleRequest($request);
 
-        $form->submit($values);
+        $form->submit($values); */
 
 
-        $part = $entityManager->getRepository(Partenaire::class)->find($user->getId());
+        //$part = $entityManager->getRepository(Partenaire::class)->find($user->getId());
 
         if ($part->getStatus() == "Active") {
             $part->setStatus("bloquer");
@@ -179,7 +179,7 @@ class PartenaireController extends AbstractController
                 'statu' => 200,
                 'Message' => 'partenaire bloquer'
             ];
-            return new JsonResponse($data);
+            
         } else {
             $part->setStatus("Active");
             $entityManager->flush();
@@ -187,8 +187,8 @@ class PartenaireController extends AbstractController
                 'statu' => 200,
                 'Message' => 'partenaire debloquer'
             ];
-            return new JsonResponse($data);
         }
+        return new JsonResponse($data);
     }
     /**
      *@Route("/envoi", name="envoi", methods={"POST"})
@@ -316,12 +316,20 @@ public function retrait(Request $request, EntityManagerInterface $entityManager)
 
     $retrait= $this->getDoctrine()->getRepository(Transaction::class)->findOneBy(['codeEnvoie' => $values['codeEnvoie']]);   
             if(!$retrait){
-
-       return new Response('Le code saisi est incorecte .Veuillez ressayer un autre  '); 
+                $data = [
+                    'statu' => 500,
+                    'Message' => 'Le code saisi est incorecte .Veuillez ressayer un autre  '
+                ];
+                return new JsonResponse($data);
      }
 
       else if($retrait->getCodeEnvoie()==$values['codeEnvoie'] && $retrait->getStatus()=="retirer" ){
-                    return new Response('Le code est déja retiré',Response::HTTP_CREATED);
+        $data = [
+            'statu' => 400,
+            'Message' => 'Le code est déja retiré'
+        ];
+        return new JsonResponse($data);
+  
                 }
      
         $retrait->setDateretrait(new \DateTime());
@@ -332,8 +340,12 @@ public function retrait(Request $request, EntityManagerInterface $entityManager)
    
     $entityManager->persist($retrait);
     $entityManager->flush(); 
+    $data = [
+        'statu' => 200,
+        'Message' => 'Retrait effectuer. Voici le montant:  '. $retrait->getMontant()
+    ];
+    return new JsonResponse($data);
    
-    return new Response('Retrait effectuer. Voici le montant:  '. $retrait->getMontant()); 
     
 
 

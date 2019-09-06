@@ -364,25 +364,34 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
 //-------Bloquer Debloquer users part-----------------/////
 
 /**
- * @Route("/bloquer", name="userBlock", methods={"GET","POST"})
+ * @Route("/bloquer/{id}", name="userBlock", methods={"GET","POST","PUT"})
  * @IsGranted({"ROLE_SUPERADMIN", "ROLE_ADMIN"})
  */
 
-public function userBloquer(Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager): Response
+public function userBloquer(User $users, Request $request, UserRepository $userRepo,EntityManagerInterface $entityManager): Response
     {
 
-        $values=$request->request->all();//si form
-        $user = new User();
-        $form = $this->createForm(BloquerType::class, $user);
-        $form->handleRequest($request);
+        // $values=$request->request->all();//si form
+        // $user = new User();
+        // $form = $this->createForm(BloquerType::class, $user);
+        // $form->handleRequest($request);
          
-        $form->submit($values);
+        // $form->submit($values);
+        $values = json_decode($request->getContent(),true);
 
+        $user=$userRepo->find($users->getId());
 
-        $user=$userRepo->findOneByUsername($values['username']);
+        //$user = $entityManager->getRepository(User::class)->find($user->getId());
+       // $user=$userRepo->findOneByUsername($values['username']);
         
-
-        if($user->getStatus()=="Active"){
+       if($user->getUsername()== "cheikh"){
+            
+        return $this->json([
+            'message1' =>'Attention cest le SupertAdmin !!! '
+        ]);
+       
+    }
+        elseif($user->getStatus()=="Active"){
             $user->setStatus("bloquer");
             $entityManager->flush();
             $data = [

@@ -19,7 +19,7 @@ return [
     'register' => [[], ['_controller' => 'App\\Controller\\SecurityController::register'], [], [['text', '/api/register']], [], []],
     'ajoutpart' => [[], ['_controller' => 'App\\Controller\\SecurityController::ajoutpart'], [], [['text', '/api/ajoutpart']], [], []],
     'ajoutpartuser' => [[], ['_controller' => 'App\\Controller\\SecurityController::ajoutpartuser'], [], [['text', '/api/ajoutpartuser']], [], []],
-    'userBlock' => [[], ['_controller' => 'App\\Controller\\SecurityController::userBloquer'], [], [['text', '/api/bloquer']], [], []],
+    'userBlock' => [['id'], ['_controller' => 'App\\Controller\\SecurityController::userBloquer'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/bloquer']], [], []],
     'afectationCompt' => [['id'], ['_controller' => 'App\\Controller\\SecurityController::afectcompt'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/afectcompt']], [], []],
     'findcompt' => [[], ['_controller' => 'App\\Controller\\SecurityController::findcompt'], [], [['text', '/api/findcompt']], [], []],
     'api_entrypoint' => [['index', '_format'], ['_controller' => 'api_platform.action.entrypoint', '_format' => '', '_api_respond' => 'true', 'index' => 'index'], ['index' => 'index'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', 'index', 'index', true], ['text', '/api']], [], []],
