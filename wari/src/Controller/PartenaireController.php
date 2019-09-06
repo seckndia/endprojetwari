@@ -100,40 +100,45 @@ class PartenaireController extends AbstractController
      * @IsGranted("ROLE_CAISSIER")
      * 
      */
-    public function depot(Request $request, EntityManagerInterface $entityManager, DepotsRepository $repo): Response
+    public function depot(Request $request, EntityManagerInterface $entityManager): Response
     {
 
         $depot = new Depots();
         $compte = new Compts();
-        $form1 = $this->createForm(ComptuserType::class, $compte);
-        $form = $this->createForm(DepotType::class, $depot);
-        $form->handleRequest($request);
-        $form1->handleRequest($request);
-        $values = $request->request->all();
-        $form->submit($values);
-        $form1->submit($values);
+      
+         $values = $request->request->all();
+       
         $depot->setDateDepot(new \DateTime());
-
         $repo = $this->getDoctrine()->getRepository(Compts::class);
 
-        $compt = $repo->findOneBy(['numcompt' => $compte->getNumcompt()]);
-        if ($values['montant'] >= 75000) {
+        $compt = $repo->findOneBy(['numcompt' => $values['numcompt']]);
+      //Si var_dump ne march pas  return new JsonResponse( $compt->getId());
 
-            $compt->setSolde($compt->getSolde() + $depot->getMontant());
+      $compt->getId();
 
-            $depot->setCompt($compt);
+        if($values['montant'] >= 75000 && $compt) {
+// $compt= $depot->getCompt();
+// $val=$compt->getSolde()+$depot->getMontant();
+// //var_dump($compt);die();
+            //$compt->setSolde($compt->getSolde() + $depot->getMontant());
+//var_dump($compt);die();
 
-            $depot->setMontant($values['montant']);
-            $user = $this->getUser();
+$depot->setSoldeInitial($compt->getSolde());
+$compt->setSolde($values['montant']+$compt->getSolde());
+$depot->setMontant($values['montant']);
 
-            $depot->setCaissier($user);
+             $depot->setCompt($compt);
 
-            $depot->setSoldeInitial($compt->getSolde());
+            // $depot->setMontant($values['montant']);
+             $user = $this->getUser();
+
+             $depot->setCaissier($user);
+
+            // $depot->setSoldeInitial($compt->getSolde());
 
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($depot);
-            $entityManager->persist($compt);
 
             $entityManager->flush();
             $data = [
@@ -151,6 +156,7 @@ class PartenaireController extends AbstractController
             return new JsonResponse($err, 500);
         }
     }
+
     //---------Bloquer Debloquer partenaire----------///
 
     /**
@@ -172,7 +178,7 @@ class PartenaireController extends AbstractController
 
         //$part = $entityManager->getRepository(Partenaire::class)->find($user->getId());
 
-        if ($part->getStatus() == "Active") {
+        if ($part->getStatus() == "Activer") {
             $part->setStatus("bloquer");
             $entityManager->flush();
             $data = [
@@ -181,7 +187,7 @@ class PartenaireController extends AbstractController
             ];
             
         } else {
-            $part->setStatus("Active");
+            $part->setStatus("Activer");
             $entityManager->flush();
             $data = [
                 'statu' => 200,

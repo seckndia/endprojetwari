@@ -208,7 +208,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
             }
             $user->setImageFile($file);  
             $user->setUpdatedAt(new \DateTime()) ; 
-            $user->setStatus('Active');
+            $user->setStatus('Activer');
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -243,7 +243,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
         
          $form->submit($values);
  
-          $part->setStatus('Active');
+          $part->setStatus('Activer');
            
           $compt = new Compts();
  
@@ -282,10 +282,10 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
              $user->setRoles(['ROLE_USER']);    
                    }
              $user->setUpdatedAt(new \DateTime()) ; 
-             $user->setStatus('Active');
+             $user->setStatus('Activer');
                   
              $user->setImageFile($file); 
-             $user->setStatus('Active');
+             $user->setStatus('Activer');
              $user->setPartenaire($part);
              $user->setNumcompt($compt);
             
@@ -342,7 +342,7 @@ public function __construct(UserPasswordEncoderInterface $passwordEncoder)
      $partenaire=$this->getUser()->getPartenaire();
 
             $user->setPartenaire($partenaire);
-            $user->setStatus('Active');
+            $user->setStatus('Activer');
             $user->setImageFile($file);
 
             $user->setUpdatedAt(new \DateTime()) ;
@@ -391,7 +391,7 @@ public function userBloquer(User $users, Request $request, UserRepository $userR
         ]);
        
     }
-        elseif($user->getStatus()=="Active"){
+        elseif($user->getStatus()=="Activer"){
             $user->setStatus("bloquer");
             $entityManager->flush();
             $data = [
@@ -402,7 +402,7 @@ public function userBloquer(User $users, Request $request, UserRepository $userR
         }
         
         else{
-            $user->setStatus("Active");
+            $user->setStatus("Activer");
             $entityManager->flush();
             $data = [
                 'status' => 200,

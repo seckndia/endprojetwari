@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
          $user->setAdresse("adresse");
          $user->setUpdatedAt(new \DateTime());
          $user->setImageName("part.jpg");
-         $user->setStatus("Active");
+         $user->setStatus("Activer");
 
          $user->setCni("0088199300189");
 
